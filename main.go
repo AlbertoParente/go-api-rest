@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/go-api-rest/database"
 	"github.com/go-api-rest/models"
 	"github.com/go-api-rest/routes"
 )
@@ -10,5 +11,6 @@ func main() {
 		{Id: 1, Name: "Nme 1", History: "History 1"},
 		{Id: 2, Name: "Nme 2", History: "History 2"},
 	}
+	database.ConnectDatabase()
 	routes.HandleRequest()
 }
