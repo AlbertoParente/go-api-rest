@@ -14,19 +14,23 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Home Page")
 }
 
-func getByAllPersonalities(w, http.ResponseWriter, r *http.Request) {
+func GetByAllPersonalities(w, http.ResponseWriter, r *http.Request) {
 	var p []models.Personality
 	database.DB.Find(&p)
 	json.NewEncoder(w).Encode(p)
 }
 
-func getByPersonality(w, http.ResponseWriter, r *http.Request) {
+func GetByPersonality(w, http.ResponseWriter, r *http.Request) {
 	vars := mux.vars(r)
 	id := vars["id"]
+	var personality models.Personalities
+	database.DB.First(&p, id)
+	json.NewEncoder(w).Encode(personality)
+}
 
-	for _, personality := range models.Personalities {
-		if strconv.Itoa(personality.Id) == id {
-			json.NewEncoder(w).Encode(personality)
-		}
-	}
+func NewPersonality(w, http.ResponseWriter, r *http.Request) {
+	var personality models.Personality
+	json.NewDecoder(r.Body).Decode(personality)
+	database.DB.Create(&personality)
+	json.NewEncoder(w).Encode((personality))
 }
